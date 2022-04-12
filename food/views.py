@@ -1,11 +1,24 @@
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Food
-from .serializers import FoodSerializer
+from .utils import getFoodsList, getFoodDetail, addFood, updateFood, deleteFood
 
-@api_view(['GET'])
-def getFood(request):
-    food = Food.objects.all()
-    serialzer = FoodSerializer(food, many=True)
-    return Response(serialzer.data)
+
+@api_view(['GET', 'POST'])
+def getFoods(request):
+    if request.method == 'GET':
+        return getFoodsList(request)
+
+    if request.method == 'POST':
+        return addFood(request)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getFood(request, pk):
+    if request.method == 'GET':
+        return getFoodDetail(request, pk)
+
+    if request.method == 'PUT':
+        return updateFood(request, pk)
+
+    if request.method == 'DELETE':
+        return deleteFood(request, pk)
