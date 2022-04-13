@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { HiPlus, HiMinus } from "react-icons/hi";
 
 const Button = ({ children, clickHandler }) => {
@@ -12,30 +11,29 @@ const Button = ({ children, clickHandler }) => {
   );
 };
 
-function FoodItem({ food: { name, carbohydrates, protein, fats } }) {
-  const [quantity, setQuantity] = useState(0);
-
+function FoodItem({
+  food: { id, name, carbohydrates, protein, fats, quantity },
+  handleQuantity,
+}) {
   return (
-    <div className="bg-white p-5 rounded-3xl">
+    <div className="bg-white p-5 rounded-2xl">
       <div className="flex justify-between items-start mb-1">
         <h1 className="text-xl font-semibold pb-2 text-slate-800">{name}</h1>
-        <span className="flex gap-x-2 ml-2">
+        <span className="flex gap-x-2 ml-4">
           {quantity !== 0 && (
             <>
-              <Button
-                clickHandler={() => setQuantity((quantity) => quantity - 1)}
-              >
+              <Button clickHandler={() => handleQuantity(id, -1)}>
                 <HiMinus />
               </Button>
               <Button>{quantity}</Button>
             </>
           )}
-          <Button clickHandler={() => setQuantity((quantity) => quantity + 1)}>
+          <Button clickHandler={() => handleQuantity(id, 1)}>
             <HiPlus />
           </Button>
         </span>
       </div>
-      <table className="table-auto w-full text-left text-sm">
+      <table className="table-auto w-full text-left">
         <thead>
           <tr>
             <th>Nutrient</th>
