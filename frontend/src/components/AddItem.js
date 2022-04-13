@@ -1,6 +1,6 @@
 function AddItem({ input, handleChange }) {
   return (
-    <div className="mb-12 max-w-lg mx-auto">
+    <div className="mb-8 max-w-lg mx-auto">
       <input
         type="text"
         value={input}

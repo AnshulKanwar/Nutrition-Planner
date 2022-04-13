@@ -4,10 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
-th:nth-child(2) {
+th, td {
+    padding: 0 0.5em;
+}
+
+th:nth-child(n+2) {
     text-align: right;
 }
 
-td:nth-child(2) {
+td:nth-child(n+2) {
     text-align: right;
 }
