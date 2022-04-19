@@ -1,4 +1,17 @@
-function Nutrition({ foods }) {
+import { HiPlus, HiMinus } from "react-icons/hi";
+
+const Button = ({ children, clickHandler }) => {
+  return (
+    <button
+      onClick={clickHandler}
+      className="text-sm font-semibold w-4 h-4 grid place-items-center rounded-full text-fuchsia-500 bg-fuchsia-100 hover:bg-fuchsia-200 active:bg-fuchsia-300"
+    >
+      {children}
+    </button>
+  );
+};
+
+function Nutrition({ foods, handleQuantity }) {
 
   return (
     <div className="my-8 max-w-2xl mx-auto rounded-2xl overflow-x-auto">
@@ -6,18 +19,24 @@ function Nutrition({ foods }) {
         <table className="w-full text-sm sm:text-base text-left">
           <thead>
             <tr>
-              <th>Food</th>
-              <th>Quantity</th>
-              <th>Carbohydrates</th>
-              <th>Protein</th>
-              <th>Fats</th>
+              <th className="pb-2">Food</th>
+              <th className="pb-2">Quantity</th>
+              <th className="pb-2">Carbohydrates</th>
+              <th className="pb-2">Protein</th>
+              <th className="pb-2">Fats</th>
             </tr>
           </thead>
           <tbody>
             {foods.map((food) => (
-              <tr>
+              <tr key={food.name}>
                 <td>{food.name}</td>
-                <td>{food.quantity}</td>
+                <td>
+                  <span className="grid grid-cols-3 text-center items-center justify-items-end">
+                    <Button clickHandler={() => handleQuantity(food.id, -1)}><HiMinus /></Button>
+                    {food.quantity}
+                    <Button clickHandler={() => handleQuantity(food.id, 1)}><HiPlus /></Button>
+                  </span>
+                </td>
                 <td>{(food.carbohydrates * food.quantity).toFixed(2)} g</td>
                 <td>{(food.protein * food.quantity).toFixed(2)} g</td>
                 <td>{(food.fats * food.quantity).toFixed(2)} g</td>

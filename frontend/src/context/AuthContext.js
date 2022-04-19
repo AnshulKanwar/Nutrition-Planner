@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         setAuthTokens(res.data);
         setUser(jwtDecode(res.data.access));
-        localStorage.setItem('authTokens', JSON.stringify(res.data))
+        localStorage.setItem("authTokens", JSON.stringify(res.data));
         navigate("/");
       })
       .catch((err) => {
@@ -39,17 +39,34 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutUser = () => {
-    setAuthTokens(null)
-    setUser(null)
-    localStorage.removeItem('authTokens')
-    navigate('/login')
-  }
+    setAuthTokens(null);
+    setUser(null);
+    localStorage.removeItem("authTokens");
+    navigate("/login");
+  };
 
   const contextData = {
     authTokens,
     user,
     loginUser,
     logoutUser,
+  };
+
+  const updateToken = () => {
+    console.log('Update Token')
+    console.log(authTokens.refresh)
+    axios
+      .post("/api/token/refresh/", {
+        refresh: authTokens?.refresh,
+      })
+      .then((res) => {
+        setAuthTokens(res.data);
+        setUser(jwtDecode(res.data.access));
+        localStorage.setItem("authTokens", JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        logoutUser();
+      });
   };
 
   return (

@@ -24,6 +24,7 @@ const Calculator = () => {
     let food = foodsCopy.find((food) => food.id === id);
     food.quantity += increment;
     setFoods(foodsCopy);
+    setInput('')
   };
 
   let filteredItems = foods.filter((food) =>
@@ -35,7 +36,9 @@ const Calculator = () => {
   return (
     <div>
       <AddItem input={input} handleChange={(e) => setInput(e.target.value)} />
-      {addedItems.length > 0 && <Nutrition foods={addedItems} />}
+      {addedItems.length > 0 && (
+        <Nutrition foods={addedItems} handleQuantity={handleQuantity} />
+      )}
       <FoodItemsList foods={filteredItems} handleQuantity={handleQuantity} />
     </div>
   );
