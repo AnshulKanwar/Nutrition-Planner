@@ -6,6 +6,8 @@ A Webapp to plan your daily nutrition needs
 
 # Todo
 - [x] Responsive Food Items Grid
+- [x] Add Login 
+- [ ] Add Error Handling (for Login)
 - [ ] Dark Mode
 - [ ] Serving Size for Each Item
 - [ ] Functionality to Log Daily Food Consumption

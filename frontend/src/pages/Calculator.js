@@ -1,13 +1,30 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 import Nutrition from "../components/Nutrition";
 import FoodItemsList from "../components/FoodItemsList";
 import AddItem from "../components/AddItem";
-import { useState } from "react";
 
-const Calculator = ({
-  foods,
-  handleQuantity,
-}) => {
+const Calculator = () => {
   const [input, setInput] = useState("");
+  const [foods, setFoods] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/foods")
+      .then((res) => {
+        let data = res.data.map((food) => ({ ...food, quantity: 0 }));
+        setFoods(data);
+      })
+      .catch((err) => console.err(err));
+  }, []);
+
+  let handleQuantity = (id, increment) => {
+    let foodsCopy = [...foods];
+    let food = foodsCopy.find((food) => food.id === id);
+    food.quantity += increment;
+    setFoods(foodsCopy);
+  };
 
   let filteredItems = foods.filter((food) =>
     food.name.toLowerCase().includes(input.toLowerCase())
