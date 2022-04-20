@@ -9,6 +9,8 @@ A Webapp to plan your daily nutrition needs
 - [x] Add Login 
 - [ ] Add Error Handling (for Login)
 - [ ] Dark Mode
+- [ ] Take a look at axios interceptors
 - [ ] Serving Size for Each Item
 - [ ] Functionality to Log Daily Food Consumption
 - [ ] Add More Food Items 
+- [ ] Track Weight/Height

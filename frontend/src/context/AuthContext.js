@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useCallback } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
     storedAuthTokens ? jwtDecode(storedAuthTokens) : null
   );
+
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -38,12 +40,12 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const logoutUser = () => {
+  const logoutUser = useCallback(() => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
     navigate("/login");
-  };
+  }, [navigate]);
 
   const contextData = {
     authTokens,
@@ -52,9 +54,7 @@ export const AuthProvider = ({ children }) => {
     logoutUser,
   };
 
-  const updateToken = () => {
-    console.log('Update Token')
-    console.log(authTokens.refresh)
+  const updateToken = useCallback(() => {
     axios
       .post("/api/token/refresh/", {
         refresh: authTokens?.refresh,
@@ -67,9 +67,31 @@ export const AuthProvider = ({ children }) => {
       .catch((err) => {
         logoutUser();
       });
-  };
+
+    if (loading) {
+      setLoading(false);
+    }
+  }, [authTokens, loading, logoutUser]);
+
+  useEffect(() => {
+    if (loading) {
+      updateToken();
+    }
+
+    let fourMinutes = 1000 * 60 * 4;
+
+    let interval = setInterval(() => {
+      if (authTokens) {
+        updateToken();
+      }
+    }, fourMinutes);
+
+    return () => clearInterval(interval);
+  }, [authTokens, loading, updateToken]);
 
   return (
-    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>
+      {loading ? null : children}
+    </AuthContext.Provider>
   );
 };

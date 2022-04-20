@@ -19,9 +19,9 @@ function App() {
                 path="/"
                 exact
                 element={
-                  <PrivateRoute>
+                  // <PrivateRoute>
                     <Calculator />
-                  </PrivateRoute>
+                  // </PrivateRoute>
                 }
               />
             </Routes>

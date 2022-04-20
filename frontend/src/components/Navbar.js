@@ -2,6 +2,7 @@ import { IoNutrition } from "react-icons/io5";
 import { BiUser } from "react-icons/bi";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const Navbar = () => {
           <IoNutrition className="text-3xl" />
           <h1 className="text-3xl font-bold">Nutrition Planner</h1>
         </div>
-        {user && (
+        {user ? (
           <div className="flex gap-x-2">
             <button className="flex items-center gap-x-2 font-bold hover:text-fuchsia-500">
               <BiUser className="text-xl" />
@@ -25,6 +26,8 @@ const Navbar = () => {
             <span className="font-light text-2xl">|</span>
             <button onClick={logoutUser} className="hover:text-black hover:underline">Logout</button>
           </div>
+        ) : (
+          <Link to="/login" className="hover:text-black hover:underline">Login</Link>
         )}
       </div>
     </div>
