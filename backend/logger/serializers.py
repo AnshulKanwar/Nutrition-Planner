@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Food
+from .models import Log
 
-class FoodSerializer(ModelSerializer):
+class LogSerializer(ModelSerializer):
     class Meta:
-        model = Food
+        model = Log
         fields = '__all__'
