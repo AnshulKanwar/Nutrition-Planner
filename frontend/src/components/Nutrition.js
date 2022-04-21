@@ -4,7 +4,7 @@ const Button = ({ children, clickHandler }) => {
   return (
     <button
       onClick={clickHandler}
-      className="text-sm font-semibold w-4 h-4 grid place-items-center rounded-full text-fuchsia-500 bg-fuchsia-100 hover:bg-fuchsia-200 active:bg-fuchsia-300"
+      className="text-sm font-semibold w-5 h-5 grid place-items-center rounded-full text-fuchsia-500 bg-fuchsia-100 hover:bg-fuchsia-200 active:bg-fuchsia-300"
     >
       {children}
     </button>
@@ -19,7 +19,7 @@ function Nutrition({ foods, handleQuantity }) {
       </div>
       <div className="flex flex-col justify-center bg-white min-w-max min-h-[10em] rounded-b-2xl rounded-tr-2xl p-5">
           {foods.length === 0 ? (
-            <div className="py-10 text-lg sm:text-2xl flex justify-center items-center gap-x-2">
+            <div className="py-10 text-lg font-semibold sm:text-2xl flex justify-center items-center gap-x-2">
               Press{" "}
               <Button>
                 <HiPlus />
@@ -42,7 +42,7 @@ function Nutrition({ foods, handleQuantity }) {
                   <tr key={food.name}>
                     <td>{food.name}</td>
                     <td>
-                      <span className="grid grid-cols-3 text-center items-center justify-items-end">
+                      <span className="grid grid-cols-3 items-center justify-items-center">
                         <Button
                           clickHandler={() => handleQuantity(food.id, -1)}
                         >

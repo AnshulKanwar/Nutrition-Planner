@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
     'foods',
     'users',
+    'logger',
 ]
 
 REST_FRAMEWORK = {
